@@ -1,0 +1,272 @@
+{% extends "basic.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block css %}
+.hero-bg {
+  background-color: #0d47a1; /* Dark blue */
+  color: white;
+  text-align: center;
+  padding: 100px 20px;
+  background-size: cover;
+  background-position: center;
+}
+.hero-title {
+  font-size: 3rem;
+  margin: 0;
+}
+.hero-bg p {
+  font-size: 1.2rem;
+}
+.hero-bg .btn-large {
+  background-color: white;
+  color: #0d47a1;
+  padding: 7px 15px;
+  text-decoration: none;
+  border-radius: 10px;
+  font-size: 17px;
+}
+.hero-bg .btn-large:hover {
+  background-color: #e3f2fd; /* Light blue */
+}
+.section {
+  padding: 50px 20px;
+  background-color: #bbdefb; /* Light blue */
+}
+.section h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #0d47a1; /* Dark blue text color */
+}
+.cards {
+  align-items: center;
+  justify-content: space-evenly;
+  display: flex;
+  flex-wrap: wrap;
+}
+.card {
+  height: 365px;
+  width: 320px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 5px 10px 5px 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.Img{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card .Img img{
+  width: 34%;
+  height: 110px;
+  object-fit: contain;
+}
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.card-content {
+  padding: 15px;
+}
+.card-title {
+  font-size: 1.5rem;
+  margin: 0;
+  color: #0d47a1; /* Dark blue text color */
+}
+.card-text {
+  text-align: justify;
+}
+
+.section1 {
+  padding: 50px 20px;
+  background-color: #0d47a1; /* Dark blue */
+}
+.section1 h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #bbdefb; /* Light blue text color */
+}
+
+.section1 .card-title {
+  font-size: 1.5rem;
+  margin: 0;
+  color: #ffffff /* white color */
+}
+.section1 .card-text {
+  text-align: justify;
+  color: #ffffff /* white color */
+}
+
+.section1 .btn-large {
+  background-color: white;
+  color: #0d47a1;
+  padding: 7px 15px;
+  text-decoration: none;
+  border-radius: 10px;
+  font-size: 17px;
+}
+
+.section1 .btn-large:hover {
+  background-color: #e3f2fd; /* Light blue */
+}
+
+.Img_auc{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section2 {
+  padding: 50px 20px;
+  background-color: #bbdefb; /* Light blue */
+}
+.section2 h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #0d47a1; /* Dark blue text color */
+}
+
+.section2 img {
+  width: auto;
+  height: fit-content;
+}
+
+.section2 .card {
+  height: auto;
+  width: 330px;
+}
+
+.section2 .card-title {
+  display: grid;
+  justify-content: center;
+}
+
+
+
+{% endblock  %}
+
+{% block body %}
+    <!-- Hero Section -->
+    <div class="hero-bg">
+      <h1 class="hero-title">Welcome to E-Auction Website</h1>
+      <p>Bid on exclusive items and win amazing deals!</p>
+      {% if user.is_authenticated %}
+        <a href="{% url 'auctions' %}" class="btn-large">Get Started</a>
+      {% else %}
+        <a href="{% url 'register' %}" class="btn-large">Get Started</a>
+        <a href="{% url 'handlelogin' %}" class="btn-large">Log In</a>
+      {% endif %}
+      
+    </div>
+
+    <div class="border"></div>
+
+    <!-- Features Section -->
+    <div class="section">
+      <h2>Our Features</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="Img">
+            <img src="/media/Images/auction.png" />
+          </div>
+          <div class="card-content">
+            <center><span class="card-title">Easy Bidding</span></center>
+            <p class="card-text">Participate in auctions with a few simple clicks. The basic idea of an e-auction is competitive bidding, where participants try to outbid each other on a digital platform.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="Img">
+            <img src="/media/Images/auction (1).png" alt="Feature 1" />
+          </div>
+          <div class="card-content">
+            <center><span class="card-title">Automatic Timer System</span></center>
+            <p class="card-text">Auction are timed with countdowns ensuring that bidding ends at the specified time. Once an auction ends, the highest bid is automatically recorded, and the winner is notified instantly.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="Img">
+            <img src="/media/Images/bid.png" alt="Feature 1" />
+        </div>
+          <div class="card-content">
+            <center><span class="card-title">Live Auctions</span></center>
+            <p class="card-text">Participate in real-time auctions and place bids on dufferent items.
+            Watch the countdown timer as it ticks down, and see who bids highest until the auction ends!</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="Img">
+            <img src="/media/Images/legal.png" alt="Feature 1" />
+          </div>
+          <div class="card-content">
+            <center><span class="card-title">Secure Bidding</span></center>
+            <p class="card-text">Your bids are secure, and you can track your bidding history in real time.
+            We ensure that all transactions are secure, protecting your personal and payment information.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="border"></div>
+
+    <!-- Features Auction Section -->
+    <div class="section1">
+      <h2>Featured Auctions</h2>
+        <div class="cards">
+          {% for i in Auction %}
+          <div class="card">
+            <div class="Img_auc">
+              <img src='/media/{{i.image}}' />
+            </div>
+            <div class="card-content">
+              <span class="card-title">{{i.title|slice:"15"}}</span>
+              <p class="card-text">{{i.desc|slice:"45"}}...</p>
+              <a href="{% url 'product' i.a_id %}" class="btn-large">View</a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+    </div>
+
+
+    <div class="border"></div>
+
+    <!-- Customer Review Section -->
+    <div class="section2">
+      <h2>Customer Reviews</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="card-content">
+            <center><img src="/media/Images/review.svg" alt="My Happy SVG"/></center>
+            <p class="card-text">Smooth and intuitive auction process with excellent customer service.</p>
+            <center><span class="card-title">Alex R.</span></center>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-content">
+            <center><img src="/media/Images/review.svg" alt="My Happy SVG"/></center>
+            <p class="card-text">Fantastic platform! Seamless bidding experience and great deals.</p>
+            <span class="card-title"> Jessica M.</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-content">
+            <center><img src="/media/Images/review.svg" alt="My Happy SVG"/></center>
+            <p class="card-text">Easy to navigate and find amazing deals. Highly recommend!</p>
+            <span class="card-title">Maria K.</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-content">
+            <center><img src="/media/Images/review.svg" alt="My Happy SVG"/></center>
+            <p class="card-text">Impressive variety and real-time updates make bidding exciting.</p>
+            <span class="card-title">David L.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  {% endblock  %}

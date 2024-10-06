@@ -1,0 +1,149 @@
+{% extends "basic.html" %}
+
+{% block title %}Add Auction{% endblock title %}
+
+{% block css %}
+    .box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .container {
+        margin: 95px;
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        width: 450px;
+    }
+    label {
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="time"],
+    input[type="datetime-local" i],
+    input:not([type="image" i], [type="range" i], [type="checkbox" i], [type="radio" i])  {
+        width: 90%;
+        padding: 7px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    textarea{
+        width: 90%;
+        padding: 7px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    a {
+        text-decoration: none;
+        color: #007bff;
+    }
+{% endblock css %}
+
+{% block body %}
+<div class="box">
+    <div class="container">
+      <center><h2>Add Auction</h2></center>
+      <form action="/auc_add" method="POST">
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <br/>
+        <input type="text" id="title" name="title" required />
+        
+        <br/>
+        <br/>
+
+        <label for="Description">Description:</label>
+        <br/>
+        <textarea id="Description" name="Description" rows="5" cols="10">Description...
+        </textarea>
+
+        <br/>
+        <br/>
+
+        <label for="Category">Category:</label>
+        <br/>
+        <input
+          type="text"
+          id="Category"
+          name="Category"
+          required
+        />
+    
+        <br/>
+        <br/>
+
+        <label for="EntryFee">Entry Fee:</label>
+        <br/>
+        <input
+          type="number"
+          id="EntryFee"
+          name="EntryFee"
+          required
+        />
+    
+        <br/>
+        <br/>
+
+        <label for="OpenningBid">Openning Bid:</label>
+        <br/>
+        <input
+          type="number"
+          id="OpenningBid"
+          name="OpenningBid"
+          required
+        />
+    
+        <br/>
+        <br/>
+
+        <label for="AuctionStart">Auction Start Date & Time:</label>
+        <br/>
+        <input
+          type="datetime-local"
+          id="AuctionStart"
+          name="AuctionStart"
+          required
+        />
+    
+        <br/>
+        <br/>
+
+        <label for="Image">Image:</label>
+        <br/>
+        <input
+          type="file"
+          id="Image"
+          name="Image"
+          accept="image/*"
+          required
+        />
+    
+        <br/>
+        <br/>
+
+        <center><button type="submit">Add</button></center>
+      </form>
+      </p>
+    </div>
+  </div>
+{% endblock body %}

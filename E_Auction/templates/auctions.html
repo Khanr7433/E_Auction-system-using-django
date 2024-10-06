@@ -1,0 +1,146 @@
+{% extends "basic.html" %}
+
+{% block title %}Auction{% endblock  %}
+
+{% block css %}
+      .box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .section {
+        padding: 20px 20px;
+        background-color: #bbdefb; /* Light blue */
+      }
+      .section h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #0d47a1; /* Dark blue text color */
+      }
+      .cards {
+        align-items: center;
+        justify-content: space-around;
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .card {
+        height: 350px;
+        width: 320px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+        margin: 5px 10px 5px 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+      .card-content {
+        padding: 15px;
+      }
+      .card-title {
+        font-size: 1.5rem;
+        margin: 0;
+        color: #0d47a1; /* Dark blue text color */
+      }
+      .btn-large {
+        background-color: white;
+        color: #0d47a1;
+        padding: 7px 15px;
+        text-decoration: none;
+        border-radius: 10px;
+        font-size: 17px;
+      }
+
+      .btn-large:hover {
+        background-color: #0d47a1; /* Dark blue text color */
+        color: #ffffff /* white color */
+      }
+
+      .add_auction{
+        display: flex;
+        flex-direction: row-reverse;
+        margin-right: 18px;
+        margin-bottom: 5px;
+          }
+      .add_auction img{
+        height: 15px;
+      }
+      .add_auction .btn-large{
+        width: fit-content;
+        gap: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        color: #0d47a1;
+        padding: 7px 15px;
+        text-decoration: none;
+        border-radius: 10px;
+        font-size: 17px;
+      }
+      .add_auction .btn-large:hover {
+        background-color: #0d47a1; /* Dark blue text color */
+        color: #ffffff /* white color */
+      }
+      button{
+        background-color: white;
+        color: #0d47a1;
+        padding: 7px 15px;
+        text-decoration: none;
+        border-radius: 10px;
+        border: none;
+        font-size: 17px;
+      }
+      .button{
+        display: flex;
+        gap: 10px;
+      }
+{% endblock  %}
+      
+
+{% block body %}
+      <div class="section">
+        <h1>Auctions</h1>
+
+
+        {% if user.is_superuser %}
+            <div class="add_auction">
+              <a href="{% url 'auc_add' %}" class="btn-large">
+                <img src='/media/Images/plus.png' />
+                Add Auction
+              </a>
+            </div> 
+        {% endif %}
+        
+        <div class="cards">
+          {% for i in Auction %}
+          <div class="card">
+            <img src='/media/{{i.image}}' />
+            <div class="card-content">
+              <span class="card-title">{{i.title|slice:"15"}}</span>
+              <p>{{i.desc|slice:"30"}}...</p>
+              <div class="button">
+                <a href="{% url 'product' i.a_id %}" class="btn-large">View</a>
+
+                 {% if user.is_superuser %}
+                    {% comment %} <form action="{% url 'auc_edit' i.a_id %}" method="POST">
+                      {% csrf_token %}
+                      <button type="submit">Edit</button>
+                    </form> {% endcomment %}
+                    
+                    <form action="{% url 'auc_del' i.a_id %}" method="POST">
+                      {% csrf_token %}
+                        <button type="submit">Delete</button> 
+                    </form>
+                  {% endif %}
+                </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        
+      </div>
+{% endblock  %}

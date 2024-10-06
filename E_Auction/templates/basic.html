@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} {% endblock %} - E-Auction</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Source Sans 3", sans-serif;
+        background-color: #f0f4f8; /* Light grey background for the whole page */
+      }
+      nav {
+        background-color: #0d47a1; /* Dark blue */
+        padding: 10px 20px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      nav .brand-logo {
+        font-size: 1.5rem;
+        color: white;
+        text-decoration: none;
+      }
+      nav .btn {
+        background-color: white;
+        color: #0d47a1;
+        padding: 7px 15px;
+        text-decoration: none;
+        border-radius: 10px;
+        font-size: 17px;
+        text-decoration: none;
+      }
+
+      nav .btn:hover {
+        background-color: #e3f2fd; /* Light blue */
+      }
+
+      nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        gap: 15px;
+      }
+      nav ul li {
+        display: inline;
+      }
+      nav ul li a {
+        font-size: 1.2rem;
+        color: white;
+        text-decoration: none;
+      }
+      nav ul li a:hover {
+        text-decoration: underline;
+      }
+      .login{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+      }
+      .log{
+        display : flex;
+        gap : 10px;
+      }
+
+      {% block css %} {% endblock %}
+
+      .footer {
+        background-color: #0d47a1; /* Dark blue */
+        color: white;
+        text-align: center;
+        padding: 20px;
+        padding-bottom: 1px;
+        padding-top: 1px;
+      }
+      .footer a {
+        color: white;
+        text-decoration: none;
+      }
+      .footer a:hover {
+        text-decoration: underline;
+      }
+      .border {
+        height: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav>
+      <a href="/" class="brand-logo">E-Auction</a>
+      <ul>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'auctions' %}">Auction</a></li>
+        <li><a href="{% url 'about' %}">About Us</a></li>
+        <li><a href="{% url 'contact' %}">Contact Us</a></li>
+      </ul>
+      {% if user.is_authenticated %}
+      <div class="login">
+        <p>Welcome, {{user.username}}</p>
+        <a href="{% url 'logout' %}" class="btn">Log Out</a>
+      </div>
+      {% else %}
+      <div class="log">
+        <a href="{% url 'register' %}" class="btn">Register</a>
+        <a href="{% url 'handlelogin' %}" class="btn">Log In</a>
+      </div>
+      {% endif %}
+      {% comment %} div {% endcomment %}
+    </nav>
+
+    <div class="border"></div>
+
+    {% for message in messages %}
+    <center>{{message}}</center>
+    {% endfor %}
+    <div class="border"></div>
+
+    {% block body %} {% endblock %}
+
+    <div class="border"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div>
+        <h3>E-Auction Website</h3>
+        <p>
+          We provide a platform for users to bid on a wide range of products.
+          Join us today!
+        </p>
+        <a href="{% url 'home' %}">Home</a> |
+        <a href="{% url 'auctions' %}">Auction</a> |
+        <a href="{% url 'about' %}">About Us</a> |
+        <a href="{% url 'contact' %}">Contact Us</a>
+      </div>
+      <div>
+        <p>&copy; All Copyright Reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>

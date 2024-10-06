@@ -1,0 +1,467 @@
+{% extends "basic.html" %}
+
+{% block title %}Product{% endblock  %}
+
+{% block css %}
+      .box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+    }
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+    }
+    .col-md-6, .col-md-3 {
+        padding: 15px;
+    }
+    .col-md-6 {
+        flex: 1;
+    }
+    .col-md-3 {
+        flex: 0 0 25%;
+    }
+    .product-images img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    .product-details {
+        background: #fff;
+        padding: 20px;
+        border-radius: 4px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .product-details h1 {
+        margin-top: 0;
+    }
+    .product-details p.lead {
+        font-size: 1.5em;
+        color: #333;
+    }
+    .product-details form {
+        margin-top: 20px;
+    }
+    .product-details form input {
+        padding: 10px;
+        width: calc(100% - 22px);
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    .product-details form button {
+        background-color: #1dc840;
+        color: #000000;
+        padding: 7px 15px;
+        text-decoration: none;
+        border-radius: 10px;
+        font-size: 17px;
+        border-color: transparent;
+    }
+    .product-details form button:hover {
+        background-color: #218838;
+        color:white;
+    }
+    .related-products {
+        margin-top: 40px;
+    }
+    .related-products h3 {
+        margin-bottom: 20px;
+    }
+    .related-products .card {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .related-products .card img {
+        width: 100%;
+        height: auto;
+    }
+    .related-products .card-body {
+        padding: 15px;
+    }
+    .related-products .card-body h5 {
+        margin-top: 0;
+    }
+    .related-products .card-body a {
+        text-decoration: none;
+        color: black;
+    }
+    .related-products .card-body a:hover {
+        text-decoration: underline;
+    }
+    .row a {
+        background-color: #1dc840;
+        color: #000000;
+        padding: 7px 15px;
+        text-decoration: none;
+        border-radius: 10px;
+        font-size: 17px;
+        width: fit-content;
+        height:fit-content;
+    }
+    .row a:hover {
+        background-color: #218838;
+        color:white;
+    }
+    .buttons{
+        width: 250px;
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+    }
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; 
+        z-index: 1; /* Sits on top */
+        padding-top: 100px; /* Location of the modal */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        background-color: rgba(0,0,0,0.4); /* Black with opacity */
+        border-radius: 15px;
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 300px;
+        border-radius: 5px;
+    }
+
+    /* Close button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    button {
+        background-color: #1dc840;
+        color: #000000;
+        padding: 7px 15px;
+        text-decoration: none;
+        border-radius: 10px;
+        font-size: 17px;
+        border-color: transparent;
+    }
+    .bid_form input{
+        width: -webkit-fill-available;
+        height: 30px;
+        border-radius: 10px;
+        font-size: 20px;    
+    }
+    .bid_form button{
+        margin-top: 10px;
+    }
+    .bid_display{
+        margin-bottom: 10px;
+        border-radius: 10px;
+        background-color: #b1b1b1;
+        height: 200px;
+        width: 100%;
+        overflow-y: scroll;
+    }
+    .bid_display h5{
+        margin: 7px 0px 0px;
+        font-size: 15px;
+    }
+    .bid_display p{
+        margin: 0px;
+        font-size: 11px;
+    }
+    
+    .bid{
+        clip-path: polygon(25% 0%, 100% 1%, 100% 100%, 25% 100%, 25% 64%, 0 50%, 24% 36%);
+    }
+    .chat-container {
+        width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        overflow-y: scroll;
+        height: 500px;
+    }
+
+    /* Individual message */
+    .message {
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 15px;
+        max-width: 70%;
+        clear: both;
+    }
+
+    /* Message from the user (right-aligned) */
+    .from-user {
+        margin-right: 10px;
+        background-color: #d1f7d6;
+        float: right;
+    }
+
+    /* Message from others (left-aligned) */
+    .from-other {
+        margin-left: 10px;
+        background-color: #e4e4e4;
+        float: left;
+    }
+
+    /* Clear float after each message */
+    .message-container::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+    .winner{
+        display:none;
+    }
+{% endblock  %}
+
+{% block body %}
+
+    <div class="box">
+      <h1>Product</h1>
+    </div>
+
+     <!-- Main Content -->
+    <main class="container">
+        
+            <div class="row">
+                <!-- Product Images -->
+                
+                <div class="col-md-6">
+                    <div class="product-images">
+                        <img src="/media/{{prod.product.image}}" alt="Product Image 1">
+                    </div>
+                </div>
+
+                <!-- Product Details -->
+                <div class="col-md-6 product-details">
+                    <h1>{{prod.product.title}}</h1>
+
+                    <p>Time left: <span id="timer1"></span></p>
+
+                    <p class="lead">Entry Fee : {{prod.product.entry_fee}}</p>
+                    <p>{{prod.product.desc}}.</p>
+
+                    <div class="winner" id="winner">
+                        <p>
+                            The Winner of this auction is 
+                            {{highest_bid.user.username}} with bid of {{highest_bid.bid_amt}}.
+                        </P>
+                    </div>
+
+                    <div id="buttons" class="buttons">
+                        {% if user.is_authenticated %}
+                            <form action="{% url 'auc_participate' prod.product.a_id %}" method="post">
+                                {% csrf_token %}
+                                    <button type="submit" value="Participate" class="btn-large">Participate</button>
+                        </form>
+                        <a id="openModalBtn" class="btn-large">Bid Now</a>
+                        {% else %}
+                        <a href="{% url 'handlelogin' %}" class="btn-large">Log In</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        
+
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>{{prod.product.title}}</h2>
+
+                    <p>Time left: <span id="timer2"></span></p>
+
+                    <div class="bid_display">
+                    
+                        {% for bid in bids.bids %}
+                            {% comment %} {% if bid.User_name.username == request.user.username %} {% endcomment %}
+                                <div class="message-container">
+                                    <div class="message from-user">
+                                            <p>
+                                                {{bid.user.username}}
+                                            </p>
+                                            <h5>
+                                            {{bid.bid_amt}} &#8377;
+                                            </h5>
+                                    </div>
+                                </div>
+                            {% comment %} {% else %}
+                                <div class="message-container">
+                                    <div class="message from-other">
+                                        <h6>
+                                            {{bid.User_name.username}}
+                                        </h6>
+                                        <h5>
+                                        {{bid.bid_amt}} &#8377;
+                                        </h5>
+                                    </div>
+                                </div>
+                            {% endif %} {% endcomment %}
+                        {% endfor %}
+                    </div>
+
+                    <div class="bid_form">
+                        <form id="bid_form" action="{% url 'auc_bid' prod.product.a_id %}" method="post">
+                            {% csrf_token %}
+                            <input type="number" name="bid_amt" Placeholder="Enter Bid Amount" required>
+                            <center>
+                            <button class="btn-large" type="submit">Bid</button>
+                            </center>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        
+        {% comment %} <script>
+            function reloadBidDisplay() {
+                $.ajax({
+                    type: 'GET',
+                    url: '{% url "bid_update" i.a_id %}',
+                    data: {},
+                    success: function(data) {
+                        var html = '';
+                        $.each(data.bids, function(index, bid) {
+                            if (bid.User_name === '{{ user.username }}') {
+                                html += '<div class="message-container"><div class="message from-user"><h6>' + bid.User_name + '</h6><h5>' + bid.bid_amt + ' &#8377;</h5></div></div>';
+                            } else {
+                                html += '<div class="message-container"><div class="message from-other"><h6>' + bid.User_name + '</h6><h5>' + bid.bid_amt + ' &#8377;</h5></div></div>';
+                            }
+                        });
+                        $('#bid_display').html(html);
+                    }
+                });
+            }
+        
+            // Call the function every 5 seconds (adjust the interval as needed)
+            setInterval(reloadBidDisplay, 5000);
+        </script> {% endcomment %}
+   
+        <!-- Handling The Remaining time -->
+        <script>
+            // Get remaining time from Django (passed as context)
+            let remainingTime = {{ rem_time | safe }};
+    
+            function startTimer(duration, display1, display2) {
+                let timer = duration, minutes, seconds;
+                const bid_form = document.getElementById('bid_form');
+                const winner = document.getElementById('winner');
+                const buttons= document.getElementById('buttons');
+    
+                let countdown = setInterval(function () {
+                    minutes = parseInt(timer / 60, 10);
+                    seconds = parseInt(timer % 60, 10);
+    
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+    
+                    display1.textContent = minutes + ":" + seconds;
+                    display2.textContent = minutes + ":" + seconds;
+    
+                    if (--timer < 0) {
+                        clearInterval(countdown);
+                        winner.style.display='block'
+                        bid_form.disabled = true;  // Disable the bid button when time is up
+                        bid_form.style.display = 'none';  // Hide the button completely (optional)
+                        buttons.disabled = true;  // Disable the bid button when time is up
+                        buttons.style.display = 'none';  // Hide the button completely (optional)
+                        display1.textContent = "Auction Ended";
+                        display2.textContent = "Auction Ended";
+                    }
+                }, 1000);
+            }
+    
+            // Display timer in the page
+            window.onload = function () {
+                const display1 = document.querySelector('#timer1');
+                const display2 = document.querySelector('#timer2');
+                startTimer(remainingTime, display1, display2);
+            };
+        </script>
+
+        <!-- Handling The Modal -->
+        <script>
+            // Get modal element
+            var modal = document.getElementById("myModal");
+    
+            // Get button to open modal
+            var btn = document.getElementById("openModalBtn");
+    
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+    
+            // When the user clicks the button, open the modal 
+            btn.onclick = function() {
+                modal.style.display = "block";
+            }
+    
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+    
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        </script>
+
+        <head>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        </head>
+
+        <!-- Related Products -->
+        <div class="related-products">
+            <h3>Related Products</h3>
+            
+            <div class="row">
+                {% for i in relprod.relprod %}
+                <!-- Product Card -->
+                <div class="col-md-3">
+                    <div class="card">
+                        <img src="/media/{{i.image}}" alt="Related Product 1">
+                        <div class="card-body">
+                            <h5>{{i.title}}</h5>
+                            <p>Entry Fee : {{i.entry_fee}}</p>
+                            <a href="{% url 'product' i.a_id %}" class="btn-large">View</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+        </div>
+    </main>
+
+{% endblock %}

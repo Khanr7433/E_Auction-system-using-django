@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auction Item Form</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+ 
+        .form-container {
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 100px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+ 
+        .form-container h2 {
+            text-align: center;
+        }
+ 
+        .form-container label,
+        .form-container input,
+        .form-container textarea {
+            display: block;
+            margin-bottom: 15px;
+        }
+ 
+        .form-container input,
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+ 
+        .form-container input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Auction Participation Form </h2>
+        <form method="POST">
+        {% csrf_token %}
+            <div>
+                <label for="item_name">Item Name:</label>
+                <input type="text" id="item_name" name="item_name" placeholder="{{item.item_name}}" readonly>
+            </div>
+            <div>
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" rows="3" placeholder="{{item.desc}}" readonly></textarea>
+            </div>
+            <div>
+                <label for="basic_amount">Basic Amount:</label>
+                <input type="number" id="basic_amount" name="basic_amount" placeholder="{{item.basic_amount}}" readonly>
+            </div>
+            <div>
+                <label for="start_date">Start Date:</label>
+                <input type="text" id="start_date" name="start_date" placeholder="{{item.start_date}}" readonly>
+            </div>
+            <div>
+                <label for="end_date">End Date:</label>
+                <input type="text" id="end_date" name="end_date" placeholder="{{item.end_date}}" readonly>
+            </div>
+            <div>
+                <label for="max_bid">Max Bid:</label>
+                <input type="number" id="max_bid" name="max_bid" min="{{item.basic_amount}}" required>
+            </div>
+            <div>
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

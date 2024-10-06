@@ -1,0 +1,79 @@
+{% extends "basic.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block css %}
+      .box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container {
+        margin: 95px;
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        width: 282px;
+      }
+      label {
+        font-weight: bold;
+      }
+
+      input[type="text"],
+      input[type="password"] {
+        width: 90%;
+        padding: 7px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+
+      button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      a {
+        text-decoration: none;
+        color: #007bff;
+      }
+      {% endblock  %}
+
+      
+ 
+
+   {% block body %}
+
+    <div class="box">
+      <div class="container">
+        <center><h2>LOGIN PAGE</h2></center>
+        <form action="/login" method="POST">
+          {% csrf_token %}
+          <label for="username">User Name:</label><br />
+          <input type="text" id="username" name="username" required /><br /><br />
+
+          <label for="password">Password:</label><br />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+          /><br /><br />
+
+          <center><button type="submit">Login</button></center>
+        </form>
+        <p>
+          Don't have an account? <a href="{% url 'register'%}">Register here</a>
+        </p>
+      </div>
+    </div>
+    {% endblock  %}
