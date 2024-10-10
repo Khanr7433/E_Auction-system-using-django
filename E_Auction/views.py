@@ -28,35 +28,53 @@ def contact(request):
 
 
 def product(request, a_id):
-    user = User.objects.get(username=request.user.username)
     product = Auction.objects.get(a_id=a_id)
     rel = Auction.objects.all().values()
     bid = Bid.objects.filter(a_id=a_id).values().order_by('-bid_amt')
-
-    end_time = product.auct_start + product.duration
-    rem_time = end_time - timezone.now()
-    rem_sec = rem_time.total_seconds()
 
     prod = {"product": product}
     relprod = {"relprod": rel}
     bids = {"bids": bid}
 
-    if rem_time.total_seconds() < 0:
-        rem_time = 0  # Auction has already ended
+    params = {
+        "prod": prod,
+        "relprod": relprod,
+    }
 
-        highest_bid = Bid.objects.filter(a_id=a_id).first()
+    if request.user.is_authenticated:
+        user = User.objects.get(username=request.user.username)
+        product = Auction.objects.get(a_id=a_id)
+        rel = Auction.objects.all().values()
+        bid = Bid.objects.filter(a_id=a_id).values().order_by('-bid_amt')
 
-        if not Result.objects.filter(auction=a_id).exists():
-            if highest_bid:
-                Result.objects.create(
-                    user=user, auction=product, high_bid=highest_bid.bid_amt)
+        end_time = product.auct_start + product.duration
+        rem_time = end_time - timezone.now()
+        rem_sec = rem_time.total_seconds()
 
-        params = {
-            "prod": prod,
-            "relprod": relprod,
-            "highest_bid": highest_bid,
-            "rem_time": rem_sec
-        }
+        prod = {"product": product}
+        relprod = {"relprod": rel}
+        bids = {"bids": bid}
+
+        if rem_time.total_seconds() < 0:
+            rem_time = 0  # Auction has already ended
+
+            highest_bid = Bid.objects.filter(a_id=a_id).first()
+
+            if not Result.objects.filter(auction=a_id).exists():
+                if highest_bid:
+                    Result.objects.create(
+                        user=user, auction=product, high_bid=highest_bid.bid_amt)
+
+            params = {
+                "prod": prod,
+                "relprod": relprod,
+                "highest_bid": highest_bid,
+                "rem_time": rem_sec
+            }
+            return render(request, 'product.html', params)
+
+    else:
+
         return render(request, 'product.html', params)
 
     params = {
@@ -175,7 +193,7 @@ def auc_add(request):
         EntryFee = request.POST['EntryFee']
         OpenningBid = request.POST['OpenningBid']
         AuctionStart = request.POST['AuctionStart']
-        Image = request.FILES['Image']
+        Image = request.POST['Image']
 
         auction = Auction.objects.create(
             title=title,
@@ -217,7 +235,7 @@ def auc_del(request, a_id):
 #         # OpenningBid = request.POST['OpenningBid']
 #         # AuctionStart = request.POST['AuctionStart']
 #         # Image = request.FILES['Image']
-        
+
 #         title = request.POST.get('title', '')
 #         Description = request.POST.get('Description', '')
 #         Category = request.POST.get('Category', '')
@@ -238,7 +256,6 @@ def auc_del(request, a_id):
 #         messages.success(
 #             request, 'Auction Edited Succesfully')
 #         return redirect('auctions')
-    
+
 #     auction = get_object_or_404(Auction, a_id=a_id)
 #     return render(request, "auc_edit.html", {'auction': auction})
-
