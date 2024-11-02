@@ -17,7 +17,6 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app']
 
 INSTALLED_APPS = [
     'E_Auction',
-    'sweetify',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
