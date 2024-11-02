@@ -1,6 +1,6 @@
 {
     "builds": [{
-        "src": "bakery_management/wsgi.py",
+        "src": "E_Auction/wsgi.py",
         "use": "@vercel/python",
         "config": { 
             "maxLambdaSize": "15mb",
@@ -10,7 +10,7 @@
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "bakery_management/wsgi.py"
+            "dest": "E_Auction/wsgi.py"
         }
     ]
 }
