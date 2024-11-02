@@ -1,0 +1,16 @@
+{
+    "builds": [{
+        "src": "E_Auction/wsgi.py",
+        "use": "@vercel/python",
+        "config": { 
+            "maxLambdaSize": "15mb",
+            "buildCommand": "build_files.bat"
+        }
+    }],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "E_Auction/wsgi.py"
+        }
+    ]
+}
