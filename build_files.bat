@@ -20,7 +20,7 @@ if %errorlevel% neq 0 (
 )
 
 :: Collect static files
-python manage.py collectstatic --noinput
+python manage.py collectstatic
 if %errorlevel% neq 0 (
     echo Failed to collect static files
     exit /b %errorlevel%
